@@ -6,6 +6,8 @@ authors = ["Shahin <me@5hah.in>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
+psycopg2-binary = "^2.8"
+jupyterlab = "^1.2.4"
 
 [tool.poetry.dev-dependencies]
 
