@@ -111,3 +111,4 @@ dmypy.json
 .direnv
 .env
 .ipynb*
+Demo*.ipynb
