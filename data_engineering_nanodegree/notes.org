@@ -1,0 +1,62 @@
+#+TITLE: My Notes on Data Engineering Nanodegree Course
+
+* Introduction
+** What is data model?
+
+An abstraction that *organizes elements of data* and *how* they will *relate* to
+each other.
+
+** DDL
+
+Data Definition Language
+
+** Conceptual data modeling
+
+- Entity mapping
+- Mapping the concepts of data that you have or will have
+- In a spread sheet terminology, the moment you start to write down notes, to
+  name your columns, you are conceptually modeling your data
+** Logical data modeling:
+Mapping conceptual models to logical models using tables, schema and columns.
+** Physical data modeling:
+Transform logical data model to DDL
+** Why it is important?
+- Organized data determines later use
+- Cluttered data model would make our queries to be complicated
+- *Data organization* will make everyones life easier in your team
+- *Starting early is important* and will make you successful
+- Data modeling is an iterative process
+** Who should focus on learning data modeling?
+Everyone who deals with data
+
+* Relational Model
+- This model organizes data into one or more tables of columns (attributes) and
+  rows with a unique key identifying each row.
+- Generally each table represents one entity type.
+** When to use RDBMS?
+When you want:
+
+- Ease of use
+- Ability to do joins
+- Aggregations and analytic (~GROUP BY~, ~SUM~, ...)
+- Smaller data volumes
+- Easier to change business requirements
+- Flexibility of queries
+- Modeling the data and not the queries
+- Secondary indexes: Add more indexes to help with  quick search
+- ACID: Properties of db transactions intended to *guarantee validity* even in
+  events of errors or power failures.
+  + Atrocity: All or nothing (on required actions in each transaction).
+  + Consistency: Keep (write to disk) the previous state unless all the steps
+    are satisfied.
+  + Isolation: Order doesn't matter but transactions are independent.
+  + Completed transactions are saved to database even in cases of system
+    failure.
+** When not to use RDBMS?
+- Large amount of data
+- Store different data type formats
+- Need high throughput -- fast reads
+- Flexible schema
+- High availability (DB is single point of failure and switching to backup takes
+  time)
+- Need horizontal solubility.
