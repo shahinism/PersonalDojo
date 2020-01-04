@@ -8,6 +8,7 @@ authors = ["Shahin <me@5hah.in>"]
 python = "^3.7"
 psycopg2-binary = "^2.8"
 jupyterlab = "^1.2.4"
+cassandra-driver = "^3.20.2"
 
 [tool.poetry.dev-dependencies]
 
