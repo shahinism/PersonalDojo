@@ -74,6 +74,13 @@ INSERT INTO users
        ON CONFLICT (user_id) DO NOTHING
 """
 
+songplay_table_insert = """
+INSERT INTO songplays
+       (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+       VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+       ON CONFLICT (songplay_id) DO NOTHING
+"""
+
 song_select = """
 SELECT song_id, a.artist_id
 FROM song_table AS s
