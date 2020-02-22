@@ -1,0 +1,113 @@
+#+TITLE: Functional Programming Principles in Scala
+#+SOURCE: https://www.coursera.org/learn/progfun1/
+
+* Cheat Sheet
+** Evaluation Rules
+*** Call By Value
+Evaluates the function arguments before calling the function.
+#+BEGIN_SRC scala
+def square(x: Double) // call by value
+#+END_SRC
+*** Call By Name
+Evaluates the function first, and then evaluates arguments if needed.
+#+BEGIN_SRC scala
+def square(x: => Double) // call by name
+#+END_SRC
+*** Samples
+#+BEGIN_SRC scala
+def example = 2 // evaluated when called
+val example = 1 // evaluated immediately
+lazy val example = 2 // evaluated once when needed
+#+END_SRC
+** TODO Higher Order Functions
+Higher order functions, either get a function as a parameter or return a
+function as result.
+** Currying
+Convert a function with multiple arguments into a function with a single
+argument that returns another function:
+#+BEGIN_SRC scala
+def f(a: Int, b: Int): Int // uncurried version (type is (Int, Int) => Int)
+def f(a: Int)(b: Int): Int // curried version (type is Int => Int => Int)
+#+END_SRC
+** Classes
+#+BEGIN_SRC scala
+class MyClass(x: Int, y: Int) {
+  require(y > 0, "y must be positive") // precondition, triggering an exception
+  def this (x: Int) = {...}            // constructor
+  def nb1 = x                          // public method computed everytime it's called
+  def nb2 = y
+  private def test(a: Int): Int = {...} // private method
+  val nb3 = x + y                       // computed only once
+  override def toString =               // overrdden method
+    member + ", " + member2
+}
+
+new MyClass(1, 2)
+#+END_SRC
+** Operators
+- ~myObject myMethod 1~ is the same as calling ~myObject.myMethod(1)~.
+- Operator (i.e. function) names can be alphanumeric, symbolic:
+  #+BEGIN_SRC scala
+  x1, *, +?%&, vector_++, counter_=
+  #+END_SRC
+** Class Hierarchies
+#+BEGIN_SRC scala
+abstract class TopLevel {       // abstract class
+  def method1(x: Int): Int      // abstract method
+  def method2(x: Int): Int = {...}
+}
+
+class Level1 extends TopLevel {
+  def method1(x: Int): Int = {...}
+  override def method2(x: Int): Int = {...} // TopLevel's method2 needs to be
+                                            // explicitly overriden.
+}
+
+object MyObject extends TopLevel {...} // Defines a singleton object. No other
+                                       //instance can be created
+#+END_SRC
+*** Create Runnable Application
+#+BEGIN_SRC scala
+object Hello {
+  def main(args: Array[String]) = println("Hello World!")
+}
+#+END_SRC
+or
+#+BEGIN_SRC scala
+object Hello extends App {
+  println("Hello World!")
+}
+#+END_SRC
+** Class Organization
+- Classes and Objects are organized in packages.
+- They can be imported using import statement ~import myPackage.MyClass~.
+- They can also be directly referenced ~new myPackage.MyClass~.
+- All members of packages ~scala~ and ~java.lang~ as well as members of object
+  ~scala.Predef~ are automatically imported.
+*** General Object Hierarchy:
+- *scala.Any* base type of all types. Has methods *hashCode* and *toString* that
+  can be overriden.
+- *scala.AnyVal* base type of all primitive types. (~scala.Double~,
+  ~scala.Float~, etc.)
+- *scala.AnyRef* base type of all reference types. (alias of ~java.lang.Object~,
+  super type of ~java.lang.String~, ~scala.List~, any user-defined class).
+- *scala.Null* is a subtype of ~scala.AnyRef~ (~null~ is the only instance of type
+  ~Null~), and ~scala~. Nothing is subtype of any other type without any instance.
+** TODO Type Parameters
+Similar to C++ templates or Java generics. These can apply to classes, traits or
+functions.
+#+BEGIN_SRC scala
+class MyClass[T](arg1: T) {...}
+new MyClass[Int](1)
+new MyClass(1)     // The type is being inferred, i.e. determined based
+                   // on the value arguments
+#+END_SRC
+
+Also possible to restrict the type being used, e.g.
+#+BEGIN_SRC scala
+def myFct[T <: TopLevel](arg: T): T = { ... } // T must be derive from TopLevel
+                                              // or be the TopLevel
+def myFct[T >: Level1](arg: T): T = { ... }   // T must be a supertype of Level1
+def myFct[T >: Level1 <: TopLevel](arg: T): T = { ... }
+#+END_SRC
+** Variance
